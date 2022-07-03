@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 import cv2 as cv
 import numpy as np
+import time
 
 def check_correctness(i, v):
     u = [0]*5
@@ -46,6 +47,8 @@ def classifier(i, histogram):
             check_correctness(i, get_max_index(intersect, 4)),
             check_correctness(i, get_min_index(bhattacharyya, 4)))
 
+start = time.time()
+
 characters = ["b", "h", "l", "m", "mg"]
 
 images = []
@@ -83,4 +86,9 @@ for i in v:
     aux[2] += int(i[2])
     aux[3] += int(i[3])
 
-print(aux)
+print("Correlation:                 ", aux[0], "/25     ", aux[0]*4, "%")
+print("Chi-Square:                  ", aux[1], "/25     ", aux[1]*4, "%")
+print("Intersection:                ", aux[2], "/25     ", aux[2]*4, "%")
+print("Bhattacharyya distance:      ", aux[3], "/25     ", aux[3]*4, "%")
+
+print("\ntime:                        ", time.time()-start, "s")
